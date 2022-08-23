@@ -36,7 +36,13 @@ class Point {
         this.y = y;
     }
 
-    update(x, y) {
+    update(point){
+        const temp = point.copy();
+        this.x = temp.x;
+        this.y = temp.y;
+    }
+
+    update_xy(x, y) {
         this.x = x;
         this.y = y;
     }
