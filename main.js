@@ -363,24 +363,38 @@ class ShapeCluster {
 }
 
 const canvas_size = 600;
-let circle_cluster = null;
+let clusters = [];
 
 function setup() {
     createCanvas(canvas_size, canvas_size);
     background(0, 0, 0);
     frameRate(30);
 
-    circle_cluster = new ShapeCluster(
-        20, ShapeType.Circle,
-        new Point(200, 200), 100, 1,
-        3, 1, 5,
-        '#0FF0FF', '#FFFFF');
-    circle_cluster.draw();
+    clusters = [
+        new ShapeCluster(
+            20, ShapeType.Circle,
+            new Point(200, 200), 100, 1,
+            3, 1, 5,
+            '#0FF0FF', '#FFFFF'),
+        new ShapeCluster(
+            20, ShapeType.Rect,
+            new Point(400, 100), 50, 2,
+            5, 1, 5,
+            '#F1BB36', '#FFFFF'),
+        new ShapeCluster(
+            20, ShapeType.Triangle,
+            new Point(300, 200), 200, 1,
+            2, 1, 5,
+            '#6FA57F', '#FFFFF')
+    ];
 }
 
 async function draw() {
     background(0, 0, 0);
 
-    circle_cluster.move();
-    circle_cluster.draw();
+    for (let i = 0; i < clusters.length; i++) {
+        const cluster = clusters[i];
+        cluster.move();
+        cluster.draw();
+    }
 }
