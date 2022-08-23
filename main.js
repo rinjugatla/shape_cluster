@@ -341,15 +341,6 @@ function setup() {
     createCanvas(canvas_size, canvas_size);
     background(0, 0, 0);
 
-    // let circle = new Shape(new Point(50, 10), 20, ShapeType.Circle, '#FF0000');
-    // circle.draw();
-
-    // let rect = new Shape(new Point(100, 50), 20, ShapeType.Rect, '#00FF00');
-    // rect.draw();
-
-    // let triangle = new Shape(new Point(200, 110), 20, ShapeType.Triangle, '#0000FF');
-    // triangle.draw();
-
     circle_cluster = new ShapeCluster(
         20, ShapeType.Circle,
         new Point(200, 200), 50, 1,
