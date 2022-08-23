@@ -146,8 +146,14 @@ class Shape {
     }
 
     draw() {
-        if (this.color == null) { fill('#FFFFFF') }
-        else { fill(this.color); }
+        if (this.color == null) { 
+            stroke(this.color);
+            fill('#FFFFFF') 
+        }
+        else { 
+            stroke(this.color);
+            fill(this.color); 
+        }
 
         switch (this.shape_type) {
             case ShapeType.Circle:
@@ -335,7 +341,22 @@ class ShapeCluster {
     }
 
     draw() {
-        for (const shape of this.shapes) {
+        // 線 図形と同時に線を描画すると図形の前/背面に線が入るので分けて描画
+        for (let i = 0; i < this.shapes.length; i++) {
+            const shape = this.shapes[i];
+            
+            const is_last = (i == this.shapes.length - 1);
+            const next_shape = is_last ? this.shapes[0] : this.shapes[i + 1];
+            if(shape == null || next_shape == null){ continue; }
+            
+            stroke(this.line_color);
+            strokeWeight(4);
+            line(shape.center.x, shape.center.y, next_shape.center.x, next_shape.center.y);
+        }
+        
+        // 図形
+        for (let i = 0; i < this.shapes.length; i++) {
+            const shape = this.shapes[i];
             shape.draw();
         }
     }
@@ -351,8 +372,8 @@ function setup() {
 
     circle_cluster = new ShapeCluster(
         20, ShapeType.Circle,
-        new Point(200, 200), 50, 1,
-        1, 1, 5,
+        new Point(200, 200), 100, 1,
+        3, 1, 5,
         '#0FF0FF', '#FFFFF');
     circle_cluster.draw();
 }
