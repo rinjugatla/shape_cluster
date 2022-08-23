@@ -305,13 +305,8 @@ class ShapeCluster {
      * BUG: 画面から飛び出す可能性がある
      */
     move_cluster() {
-        const min = this.center.sub(this.move_speed_vector);
-        const max = this.center.add(this.move_speed_vector);
-
-        const x = Utility.get_random_int(min.x, max.x);
-        const y = Utility.get_random_int(min.y, max.y);
-
-        this.center.update(x, y);
+        const move_vector = this.get_random_move_vector();
+        this.center.update(this.center.add(move_vector));
     }
 
     /**
@@ -320,17 +315,26 @@ class ShapeCluster {
      */
     move_shapes() {
         for (let i = 0; i < this.shapes.length; i++) {
-            let shape = this.shapes[i];
+            const move_vector = this.get_random_move_vector();
 
-            const center = shape.center;
-            const min = center.sub(this.move_speed_vector);
-            const max = center.add(this.move_speed_vector);
-
-            const x = Utility.get_random_int(min.x, max.x);
-            const y = Utility.get_random_int(min.y, max.y);
-
-            shape.center.update(x, y);
+            let center = this.shapes[i].center;
+            center.update(center.add(move_vector));
         }
+    }
+
+    /**
+     * 中心点移動用のランダムなベクトルを作成
+     * @returns 
+     */
+    get_random_move_vector(){
+        const vector = new Point(
+            Utility.get_random_int(this.move_speed * -1, this.move_speed + 1),
+            Utility.get_random_int(this.move_speed * -1, this.move_speed + 1)
+        );
+
+        console.log(vector.to_string());
+
+        return vector;
     }
 
     draw() {
@@ -346,11 +350,12 @@ let circle_cluster = null;
 function setup() {
     createCanvas(canvas_size, canvas_size);
     background(0, 0, 0);
+    frameRate(30);
 
     circle_cluster = new ShapeCluster(
         20, ShapeType.Circle,
         new Point(200, 200), 50, 1,
-        2, 1, 5,
+        1, 1, 5,
         '#0FF0FF', '#FFFFF');
     circle_cluster.draw();
 }
