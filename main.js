@@ -331,9 +331,6 @@ class ShapeCluster {
             Utility.get_random_int(this.move_speed * -1, this.move_speed + 1),
             Utility.get_random_int(this.move_speed * -1, this.move_speed + 1)
         );
-
-        console.log(vector.to_string());
-
         return vector;
     }
 
