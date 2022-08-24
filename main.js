@@ -36,7 +36,7 @@ class Point {
         this.y = y;
     }
 
-    update(point){
+    update(point) {
         const temp = point.copy();
         this.x = temp.x;
         this.y = temp.y;
@@ -146,13 +146,13 @@ class Shape {
     }
 
     draw() {
-        if (this.color == null) { 
+        if (this.color == null) {
             stroke(this.color);
-            fill('#FFFFFF') 
+            fill('#FFFFFF')
         }
-        else { 
+        else {
             stroke(this.color);
-            fill(this.color); 
+            fill(this.color);
         }
 
         switch (this.shape_type) {
@@ -332,7 +332,7 @@ class ShapeCluster {
      * 中心点移動用のランダムなベクトルを作成
      * @returns 
      */
-    get_random_move_vector(){
+    get_random_move_vector() {
         const vector = new Point(
             Utility.get_random_int(this.move_speed * -1, this.move_speed + 1),
             Utility.get_random_int(this.move_speed * -1, this.move_speed + 1)
@@ -344,16 +344,16 @@ class ShapeCluster {
         // 線 図形と同時に線を描画すると図形の前/背面に線が入るので分けて描画
         for (let i = 0; i < this.shapes.length; i++) {
             const shape = this.shapes[i];
-            
+
             const is_last = (i == this.shapes.length - 1);
             const next_shape = is_last ? this.shapes[0] : this.shapes[i + 1];
-            if(shape == null || next_shape == null){ continue; }
-            
+            if (shape == null || next_shape == null) { continue; }
+
             stroke(this.line_color);
             strokeWeight(4);
             line(shape.center.x, shape.center.y, next_shape.center.x, next_shape.center.y);
         }
-        
+
         // 図形
         for (let i = 0; i < this.shapes.length; i++) {
             const shape = this.shapes[i];
